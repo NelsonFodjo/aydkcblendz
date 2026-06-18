@@ -1,15 +1,15 @@
 import { useState } from 'react'
 import { CONVICTION_SOURCES, PRODUCT_INTERESTS } from '../../utils/deaneries'
 import { validateStepThree } from '../../utils/validation'
-
-const inputClasses =
-  'w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-lime/30 focus:border-lime transition-colors duration-150'
+import { inputClasses, primaryButtonClasses } from '../../utils/uiClasses'
 
 function RadioOption({ name, value, label, checked, onChange }) {
   return (
     <label
-      className={`flex items-center gap-2 rounded-full border px-4 py-2.5 text-sm cursor-pointer transition-colors duration-150 max-w-full ${
-        checked ? 'bg-lime border-lime text-ink' : 'bg-white border-gray-200 text-neutral hover:bg-lime/5'
+      className={`flex items-center gap-2 rounded-full border px-4 py-2.5 text-sm cursor-pointer transition-all duration-150 max-w-full shadow-xs ${
+        checked
+          ? 'bg-lime border-lime text-ink shadow-soft'
+          : 'bg-white border-gray-200 text-neutral hover:border-lime hover:bg-lime/5'
       }`}
     >
       <input
@@ -109,7 +109,7 @@ export default function StepThree({ initialData, onSubmit, onRegisterAnother }) 
       <button
         type="submit"
         disabled={submitting}
-        className="w-full bg-lime text-ink rounded-full py-3.5 font-display font-semibold hover:bg-gold transition-colors duration-200 disabled:opacity-60 min-h-12"
+        className={`w-full py-3.5 min-h-12 ${primaryButtonClasses}`}
       >
         {submitting ? 'Submitting...' : 'Done'}
       </button>

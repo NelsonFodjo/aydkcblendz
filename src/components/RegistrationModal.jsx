@@ -1,9 +1,11 @@
 import { useEffect, useState } from 'react'
+import { v4 as uuidv4 } from 'uuid'
 import StepOne from './registration/StepOne'
 import StepTwo from './registration/StepTwo'
 import StepThree from './registration/StepThree'
 import { insertRegistration, updateRegistration } from '../hooks/useRegistrations'
 import { addRegistrationToHistory } from '../utils/registrationHistory'
+import { primaryButtonClasses } from '../utils/uiClasses'
 
 const initialForm = {
   name: '',
@@ -32,9 +34,9 @@ export default function RegistrationModal({ onClose }) {
   }, [onClose])
 
   async function handleStepOneSubmit(data) {
-    const newQrCodeId = crypto.randomUUID()
     try {
       setError('')
+      const newQrCodeId = uuidv4()
       const inserted = await insertRegistration({
         name: data.name,
         whatsapp: data.whatsapp,
@@ -45,7 +47,12 @@ export default function RegistrationModal({ onClose }) {
       setForm((prev) => ({ ...prev, ...data }))
       setQrCodeId(newQrCodeId)
       setRegistrationDbId(inserted.id)
-      addRegistrationToHistory({ qrCodeId: newQrCodeId, name: data.name })
+      setRegistrationNumber(inserted.registration_number)
+      addRegistrationToHistory({
+        qrCodeId: newQrCodeId,
+        name: data.name,
+        registrationNumber: inserted.registration_number,
+      })
       setStep(2)
     } catch {
       setError('Something went wrong. Please try again.')
@@ -71,6 +78,7 @@ export default function RegistrationModal({ onClose }) {
     setForm(initialForm)
     setQrCodeId('')
     setRegistrationDbId(null)
+    setRegistrationNumber(null)
     setError('')
     setStep(1)
   }
@@ -116,6 +124,7 @@ export default function RegistrationModal({ onClose }) {
         {step === 2 && (
           <StepTwo
             qrCodeId={qrCodeId}
+            registrationNumber={registrationNumber}
             onContinue={() => setStep(3)}
             onRegisterAnother={handleRegisterAnother}
           />
@@ -138,7 +147,7 @@ export default function RegistrationModal({ onClose }) {
             <button
               type="button"
               onClick={onClose}
-              className="w-full bg-lime text-ink rounded-full py-3 font-display font-semibold hover:bg-gold transition-colors duration-200 min-h-11"
+              className={`w-full py-3 min-h-11 ${primaryButtonClasses}`}
             >
               Close
             </button>

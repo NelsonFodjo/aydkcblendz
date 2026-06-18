@@ -3,6 +3,7 @@ import { Camera, RefreshCw } from 'lucide-react'
 import AdminQRScanner from './AdminQRScanner'
 import VerificationResult from './VerificationResult'
 import { useVerification } from '../../hooks/useVerification'
+import { primaryButtonClasses, secondaryButtonClasses } from '../../utils/uiClasses'
 
 export default function ScannerPanel() {
   const [scanning, setScanning] = useState(false)
@@ -30,7 +31,7 @@ export default function ScannerPanel() {
           <button
             type="button"
             onClick={() => setScanning(true)}
-            className="inline-flex items-center gap-2 bg-lime text-ink rounded-lg px-5 py-2.5 font-display font-semibold hover:bg-gold transition-colors duration-200"
+            className={`inline-flex items-center gap-2 px-5 py-2.5 ${primaryButtonClasses}`}
           >
             <Camera size={16} />
             Start Scanning
@@ -45,14 +46,14 @@ export default function ScannerPanel() {
             <button
               type="button"
               onClick={() => setScanning(false)}
-              className="flex-1 border border-gray-200 text-ink rounded-lg py-2.5 font-medium hover:bg-gray-50 transition-colors duration-200 min-h-11"
+              className={`flex-1 text-ink py-2.5 min-h-11 ${secondaryButtonClasses}`}
             >
               Stop
             </button>
             <button
               type="button"
               onClick={() => setScannerKey((k) => k + 1)}
-              className="flex items-center justify-center gap-1.5 border border-gray-200 text-ink rounded-lg px-4 py-2.5 font-medium hover:bg-gray-50 transition-colors duration-200 min-h-11"
+              className={`flex items-center justify-center gap-1.5 text-ink px-4 py-2.5 min-h-11 ${secondaryButtonClasses}`}
             >
               <RefreshCw size={16} />
               Reset

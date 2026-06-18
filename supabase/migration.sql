@@ -10,12 +10,16 @@ create table if not exists registrations (
   product_interest text,
   qr_code_id uuid not null unique,
   verified_at timestamptz,
+  is_winner boolean not null default false,
   created_at timestamptz not null default now(),
   updated_at timestamptz not null default now()
 );
 
 create index if not exists registrations_qr_code_id_idx on registrations (qr_code_id);
 create index if not exists registrations_deanery_idx on registrations (deanery);
+create unique index if not exists registrations_single_winner_idx
+  on registrations ((is_winner))
+  where is_winner;
 
 alter table registrations enable row level security;
 

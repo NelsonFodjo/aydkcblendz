@@ -1,11 +1,11 @@
-import { Users, CheckCircle, Clock, TrendingUp } from 'lucide-react'
+import { Users, CheckCircle, Clock, CalendarCheck } from 'lucide-react'
 
 export default function StatsCards({ stats }) {
   const items = [
     { label: 'Total Interest', value: stats.total, icon: Users },
-    { label: 'Verified', value: stats.verified, icon: CheckCircle },
+    { label: 'Purchased', value: stats.verified, icon: CheckCircle },
     { label: 'Pending', value: stats.pending, icon: Clock },
-    { label: 'Conversion Rate', value: `${stats.conversionRate}%`, icon: TrendingUp },
+    { label: 'Purchased Today', value: stats.purchasedToday, icon: CalendarCheck },
   ]
 
   return (
@@ -21,14 +21,6 @@ export default function StatsCards({ stats }) {
             </div>
           </div>
           <p className="font-display font-bold text-2xl sm:text-3xl text-ink">{item.value}</p>
-          {item.label === 'Conversion Rate' && (
-            <div className="mt-2 h-1.5 bg-gray-100 rounded-full overflow-hidden">
-              <div
-                className="h-full bg-lime rounded-full transition-all duration-500"
-                style={{ width: `${stats.conversionRate}%` }}
-              />
-            </div>
-          )}
         </div>
       ))}
     </div>

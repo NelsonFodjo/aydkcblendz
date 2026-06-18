@@ -8,8 +8,8 @@ export function getRegistrationHistory() {
   }
 }
 
-export function addRegistrationToHistory({ qrCodeId, name }) {
+export function addRegistrationToHistory({ qrCodeId, name, registrationNumber }) {
   const history = getRegistrationHistory()
-  history.push({ qrCodeId, name, createdAt: new Date().toISOString() })
+  history.push({ qrCodeId, name, registrationNumber, createdAt: new Date().toISOString() })
   localStorage.setItem(STORAGE_KEY, JSON.stringify(history))
 }

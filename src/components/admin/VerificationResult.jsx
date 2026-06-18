@@ -1,5 +1,6 @@
 import { CheckCircle2, XCircle } from 'lucide-react'
 import { formatTimestamp } from '../../utils/formatters'
+import { primaryButtonClasses } from '../../utils/uiClasses'
 
 export default function VerificationResult({ status, result, confirmedAt, onMarkPurchased }) {
   if (status === 'valid' && result) {
@@ -8,6 +9,9 @@ export default function VerificationResult({ status, result, confirmedAt, onMark
         <p className="flex items-center gap-1.5 font-display font-semibold text-ink">
           <CheckCircle2 className="text-lime" size={18} />
           Valid Registration
+          {result.registration_number != null && (
+            <span className="text-neutral font-normal text-sm">#{result.registration_number}</span>
+          )}
         </p>
         <p className="text-neutral">
           <span className="font-medium text-ink">Name:</span> {result.name}
@@ -27,7 +31,7 @@ export default function VerificationResult({ status, result, confirmedAt, onMark
           <button
             type="button"
             onClick={onMarkPurchased}
-            className="w-full bg-lime text-ink rounded-lg py-2.5 font-display font-semibold hover:bg-gold transition-colors duration-200 min-h-11"
+            className={`w-full py-2.5 min-h-11 ${primaryButtonClasses}`}
           >
             MARK AS PURCHASED
           </button>

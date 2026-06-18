@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Lock } from 'lucide-react'
 import { validatePin } from '../../utils/validation'
+import { primaryButtonClasses } from '../../utils/uiClasses'
 
 const ADMIN_PIN = import.meta.env.VITE_ADMIN_PIN
 
@@ -40,14 +41,14 @@ export default function AdminPinGate({ onAuthenticated }) {
             setError('')
             setPin(e.target.value.replace(/\D/g, ''))
           }}
-          className="w-full text-center text-2xl tracking-widest border-2 border-gray-200 rounded-lg px-3 py-3 focus:outline-none focus:border-lime focus:ring-2 focus:ring-lime/20 transition-colors duration-150"
+          className="w-full text-center text-2xl tracking-widest bg-white border border-gray-200 rounded-xl px-3 py-3 shadow-xs outline-none transition-all duration-150 focus:border-lime focus:ring-4 focus:ring-lime/15"
           aria-label="Admin PIN"
           autoFocus
         />
         {error && <p className="text-coral text-sm mt-2">{error}</p>}
         <button
           type="submit"
-          className="w-full mt-5 bg-lime text-ink rounded-lg py-2.5 font-display font-semibold hover:bg-gold transition-colors duration-200 min-h-11"
+          className={`w-full mt-5 py-2.5 min-h-11 ${primaryButtonClasses}`}
         >
           Unlock
         </button>

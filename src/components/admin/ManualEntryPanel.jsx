@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { Search } from 'lucide-react'
 import VerificationResult from './VerificationResult'
 import { useVerification } from '../../hooks/useVerification'
+import { primaryButtonClasses } from '../../utils/uiClasses'
 
 export default function ManualEntryPanel() {
   const [code, setCode] = useState('')
@@ -25,12 +26,12 @@ export default function ManualEntryPanel() {
             value={code}
             onChange={(e) => setCode(e.target.value)}
             placeholder="Registration ID"
-            className="flex-1 min-w-0 border-2 border-gray-200 rounded-lg px-3 py-2 focus:outline-none focus:border-lime focus:ring-2 focus:ring-lime/20 transition-colors duration-150"
+            className="flex-1 min-w-0 bg-white border border-gray-200 rounded-xl px-3 py-2 shadow-xs outline-none transition-all duration-150 focus:border-lime focus:ring-4 focus:ring-lime/15"
           />
           <button
             type="submit"
             disabled={!code.trim()}
-            className="flex items-center justify-center gap-1.5 bg-lime text-ink rounded-lg px-4 py-2 font-medium hover:bg-gold transition-colors duration-200 disabled:opacity-50 min-h-11 sm:min-h-0"
+            className={`flex items-center justify-center gap-1.5 px-4 py-2 min-h-11 sm:min-h-0 ${primaryButtonClasses}`}
           >
             <Search size={16} />
             Verify

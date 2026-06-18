@@ -1,8 +1,9 @@
 import { useRef } from 'react'
 import { CheckCircle, Download } from 'lucide-react'
 import { QRCodeCanvas } from 'qrcode.react'
+import { primaryButtonClasses, secondaryButtonClasses } from '../../utils/uiClasses'
 
-export default function StepTwo({ qrCodeId, onContinue, onRegisterAnother }) {
+export default function StepTwo({ qrCodeId, registrationNumber, onContinue, onRegisterAnother }) {
   const canvasWrapperRef = useRef(null)
 
   function handleDownload() {
@@ -11,7 +12,8 @@ export default function StepTwo({ qrCodeId, onContinue, onRegisterAnother }) {
     const url = canvas.toDataURL('image/png')
     const link = document.createElement('a')
     link.href = url
-    link.download = `${qrCodeId}.png`
+    link.download =
+      registrationNumber != null ? `KcBlendz-AYD-${registrationNumber}.png` : `${qrCodeId}.png`
     link.click()
   }
 
@@ -23,7 +25,10 @@ export default function StepTwo({ qrCodeId, onContinue, onRegisterAnother }) {
 
       <div>
         <h2 className="font-display font-bold text-2xl text-ink">You're In!</h2>
-        <p className="text-neutral text-sm mt-1">
+        {registrationNumber != null && (
+          <p className="text-neutral text-xs mt-1">Interest #{registrationNumber}</p>
+        )}
+        <p className="text-neutral text-sm mt-2">
           Show this at AYD on Aug 9 to be eligible for the raffle
         </p>
       </div>
@@ -35,11 +40,18 @@ export default function StepTwo({ qrCodeId, onContinue, onRegisterAnother }) {
         <QRCodeCanvas value={qrCodeId} size={200} includeMargin />
       </div>
 
+      <div>
+        <p className="text-xs text-neutral mb-1">Registration ID (for manual check-in)</p>
+        <p className="font-mono text-xs text-ink bg-gray-50 border border-gray-200 rounded-lg px-3 py-2 select-all break-all">
+          {qrCodeId}
+        </p>
+      </div>
+
       <div className="flex flex-col gap-3">
         <button
           type="button"
           onClick={handleDownload}
-          className="w-full flex items-center justify-center gap-2 border border-gray-200 text-ink rounded-xl py-3 font-medium hover:border-lime hover:bg-lime/5 transition-colors duration-200 min-h-11"
+          className={`w-full flex items-center justify-center gap-2 py-3 min-h-11 text-ink ${secondaryButtonClasses}`}
         >
           <Download size={16} />
           Download QR Code
@@ -48,7 +60,7 @@ export default function StepTwo({ qrCodeId, onContinue, onRegisterAnother }) {
         <button
           type="button"
           onClick={onContinue}
-          className="w-full bg-lime text-ink rounded-xl py-3 font-display font-semibold hover:bg-gold transition-colors duration-200 min-h-11"
+          className={`w-full py-3 min-h-11 ${primaryButtonClasses}`}
         >
           Continue
         </button>

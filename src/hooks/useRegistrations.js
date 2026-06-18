@@ -65,6 +65,44 @@ export async function markAsPurchased(id) {
   return data
 }
 
+export async function pickRaffleWinner() {
+  const { data: candidates, error: fetchError } = await supabase
+    .from('registrations')
+    .select('*')
+    .not('verified_at', 'is', null)
+  if (fetchError) throw fetchError
+  if (!candidates || candidates.length === 0) {
+    throw new Error('No purchasers to pick from yet.')
+  }
+
+  const winner = candidates[Math.floor(Math.random() * candidates.length)]
+
+  const { error: clearError } = await supabase
+    .from('registrations')
+    .update({ is_winner: false })
+    .eq('is_winner', true)
+  if (clearError) throw clearError
+
+  const { data: updated, error: setError } = await supabase
+    .from('registrations')
+    .update({ is_winner: true })
+    .eq('id', winner.id)
+    .select()
+    .single()
+  if (setError) throw setError
+  return updated
+}
+
+export async function fetchRaffleWinner() {
+  const { data, error } = await supabase
+    .from('registrations')
+    .select('*')
+    .eq('is_winner', true)
+    .maybeSingle()
+  if (error) throw error
+  return data
+}
+
 export async function fetchAllRegistrations() {
   const { data, error } = await supabase
     .from('registrations')
@@ -79,7 +117,7 @@ export function useAdminStats() {
     total: 0,
     verified: 0,
     pending: 0,
-    conversionRate: 0,
+    purchasedToday: 0,
     topDeaneries: [],
     productBreakdown: [],
     sourceBreakdown: [],
@@ -96,7 +134,9 @@ export function useAdminStats() {
     const total = rows.length
     const verified = rows.filter((r) => r.verified_at).length
     const pending = total - verified
-    const conversionRate = total > 0 ? Math.round((verified / total) * 100) : 0
+
+    const today = new Date().toISOString().slice(0, 10)
+    const purchasedToday = rows.filter((r) => r.verified_at?.slice(0, 10) === today).length
 
     const deaneryCounts = {}
     const productCounts = {}
@@ -140,7 +180,7 @@ export function useAdminStats() {
       total,
       verified,
       pending,
-      conversionRate,
+      purchasedToday,
       topDeaneries,
       productBreakdown,
       sourceBreakdown,

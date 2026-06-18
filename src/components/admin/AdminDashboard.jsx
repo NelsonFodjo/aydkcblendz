@@ -1,17 +1,19 @@
 import { useState } from 'react'
-import { LogOut, RefreshCw, QrCode, Users, Keyboard, BarChart3 } from 'lucide-react'
+import { LogOut, RefreshCw, QrCode, Users, Keyboard, BarChart3, Sparkles } from 'lucide-react'
 import { useAdminStats } from '../../hooks/useRegistrations'
 import StatsCards from './StatsCards'
 import InsightsPanel from './InsightsPanel'
 import ScannerPanel from './ScannerPanel'
 import RegistrantsPanel from './RegistrantsPanel'
 import ManualEntryPanel from './ManualEntryPanel'
+import RafflePanel from './RafflePanel'
 
 const TABS = [
   { id: 'insights', label: 'Insights', icon: BarChart3 },
   { id: 'scanner', label: 'Scanner', icon: QrCode },
   { id: 'list', label: 'List', icon: Users },
   { id: 'manual', label: 'Manual', icon: Keyboard },
+  { id: 'raffle', label: 'Raffle', icon: Sparkles },
 ]
 
 export default function AdminDashboard() {
@@ -87,6 +89,7 @@ export default function AdminDashboard() {
                 <RegistrantsPanel stats={stats} loading={loading} refresh={refresh} />
               )}
               {tab === 'manual' && <ManualEntryPanel />}
+              {tab === 'raffle' && <RafflePanel stats={stats} />}
             </div>
           </>
         )}

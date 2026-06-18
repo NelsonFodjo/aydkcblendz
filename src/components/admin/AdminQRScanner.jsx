@@ -9,7 +9,12 @@ export default function AdminQRScanner({ onScan }) {
   const [cameraError, setCameraError] = useState('')
 
   useEffect(() => {
+    let cancelled = false
     let scanner
+
+    const regionEl = document.getElementById(SCANNER_ELEMENT_ID)
+    if (regionEl) regionEl.innerHTML = ''
+
     try {
       scanner = new Html5Qrcode(SCANNER_ELEMENT_ID)
       scannerRef.current = scanner
@@ -27,10 +32,19 @@ export default function AdminQRScanner({ onScan }) {
         },
         () => {},
       )
-      .then(() => setScanning(true))
-      .catch(() => setCameraError('Unable to access camera. Use manual entry below.'))
+      .then(() => {
+        if (cancelled) {
+          scanner.stop().catch(() => {})
+        } else {
+          setScanning(true)
+        }
+      })
+      .catch(() => {
+        if (!cancelled) setCameraError('Unable to access camera. Use manual entry below.')
+      })
 
     return () => {
+      cancelled = true
       if (scannerRef.current?.isScanning) {
         scannerRef.current.stop().catch(() => {})
       }
