@@ -123,17 +123,17 @@ export default function RegistrationModal({ onClose }) {
 
         {step === 2 && (
           <StepTwo
-            qrCodeId={qrCodeId}
-            registrationNumber={registrationNumber}
-            onContinue={() => setStep(3)}
+            initialData={form}
+            onSubmit={handleStepThreeSubmit}
             onRegisterAnother={handleRegisterAnother}
           />
         )}
 
         {step === 3 && (
           <StepThree
-            initialData={form}
-            onSubmit={handleStepThreeSubmit}
+            qrCodeId={qrCodeId}
+            registrationNumber={registrationNumber}
+            onContinue={() => setStep(3)}
             onRegisterAnother={handleRegisterAnother}
           />
         )}

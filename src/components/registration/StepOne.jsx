@@ -89,7 +89,7 @@ export default function StepOne({ initialData, onSubmit }) {
               setLocalNumber(e.target.value.replace(/[^0-9\s]/g, ''))
               setErrors((prev) => ({ ...prev, whatsapp: undefined }))
             }}
-            placeholder="803 727 8271"
+            placeholder="XXX XXX XXXX"
             className={`${inputClasses} grow basis-0 min-w-0`}
             aria-invalid={Boolean(errors.whatsapp)}
             aria-describedby={errors.whatsapp ? 'whatsapp-error' : undefined}

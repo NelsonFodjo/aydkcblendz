@@ -1,126 +1,78 @@
-import { useState } from 'react'
-import { CONVICTION_SOURCES, PRODUCT_INTERESTS } from '../../utils/deaneries'
-import { validateStepThree } from '../../utils/validation'
-import { inputClasses, primaryButtonClasses } from '../../utils/uiClasses'
+import { useRef } from 'react'
+import { CheckCircle, Download } from 'lucide-react'
+import { QRCodeCanvas } from 'qrcode.react'
+import { primaryButtonClasses, secondaryButtonClasses } from '../../utils/uiClasses'
 
-function RadioOption({ name, value, label, checked, onChange }) {
-  return (
-    <label
-      className={`flex items-center gap-2 rounded-full border px-4 py-2.5 text-sm cursor-pointer transition-all duration-150 max-w-full shadow-xs ${
-        checked
-          ? 'bg-lime border-lime text-ink shadow-soft'
-          : 'bg-white border-gray-200 text-neutral hover:border-lime hover:bg-lime/5'
-      }`}
-    >
-      <input
-        type="radio"
-        name={name}
-        value={value}
-        checked={checked}
-        onChange={onChange}
-        className="accent-lime shrink-0"
-      />
-      <span className="break-words">{label}</span>
-    </label>
-  )
-}
+export default function StepTwo({ qrCodeId, registrationNumber, onContinue, onRegisterAnother }) {
+  const canvasWrapperRef = useRef(null)
 
-export default function StepThree({ initialData, onSubmit, onRegisterAnother }) {
-  const [parish, setParish] = useState(initialData.parish)
-  const [convictionSource, setConvictionSource] = useState(initialData.convictionSource)
-  const [productInterest, setProductInterest] = useState(initialData.productInterest)
-  const [errors, setErrors] = useState({})
-  const [submitting, setSubmitting] = useState(false)
-
-  async function handleSubmit(e) {
-    e.preventDefault()
-    const data = { parish: parish.trim(), convictionSource, productInterest }
-    const newErrors = validateStepThree(data)
-    setErrors(newErrors)
-    if (Object.keys(newErrors).length > 0) return
-
-    setSubmitting(true)
-    try {
-      await onSubmit(data)
-    } finally {
-      setSubmitting(false)
-    }
+  function handleDownload() {
+    const canvas = canvasWrapperRef.current?.querySelector('canvas')
+    if (!canvas) return
+    const url = canvas.toDataURL('image/png')
+    const link = document.createElement('a')
+    link.href = url
+    link.download =
+      registrationNumber != null ? `KcBlendz-AYD-${registrationNumber}.png` : `${qrCodeId}.png`
+    link.click()
   }
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-6">
-      <div>
-        <label htmlFor="parish" className="block text-sm font-semibold text-ink mb-1.5">
-          Your Parish
-        </label>
-        <input
-          id="parish"
-          type="text"
-          value={parish}
-          onChange={(e) => setParish(e.target.value)}
-          placeholder="e.g. Holy Cross Parish"
-          className={inputClasses}
-        />
-        {errors.parish && <p className="text-coral text-sm mt-1">{errors.parish}</p>}
+    <div className="text-center space-y-5">
+      <div className="w-14 h-14 rounded-full bg-lime/20 flex items-center justify-center mx-auto">
+        <CheckCircle className="text-lime" size={28} />
       </div>
 
-      <fieldset>
-        <legend className="block text-sm font-semibold text-ink mb-2">
-          What convinced you to experience AYD with KcBlendz?
-        </legend>
-        <div className="flex flex-wrap gap-2">
-          {CONVICTION_SOURCES.map((option) => (
-            <RadioOption
-              key={option}
-              name="convictionSource"
-              value={option}
-              label={option}
-              checked={convictionSource === option}
-              onChange={(e) => setConvictionSource(e.target.value)}
-            />
-          ))}
-        </div>
-        {errors.convictionSource && (
-          <p className="text-coral text-sm mt-1">{errors.convictionSource}</p>
+      <div>
+        <h2 className="font-display font-bold text-2xl text-ink">You're In!</h2>
+        {registrationNumber != null && (
+          <p className="text-neutral text-xs mt-1">Interest #{registrationNumber}</p>
         )}
-      </fieldset>
+        <p className="text-neutral text-sm mt-2">
+          Show this at KcBlendz booth on Aug 9 to be eligible for the raffle
+        </p>
+      </div>
 
-      <fieldset>
-        <legend className="block text-sm font-semibold text-ink mb-2">
-          Which KcBlendz product are you most interested in experiencing?
-        </legend>
-        <div className="flex flex-wrap gap-2">
-          {PRODUCT_INTERESTS.map((option) => (
-            <RadioOption
-              key={option}
-              name="productInterest"
-              value={option}
-              label={option}
-              checked={productInterest === option}
-              onChange={(e) => setProductInterest(e.target.value)}
-            />
-          ))}
-        </div>
-        {errors.productInterest && (
-          <p className="text-coral text-sm mt-1">{errors.productInterest}</p>
-        )}
-      </fieldset>
-
-      <button
-        type="submit"
-        disabled={submitting}
-        className={`w-full py-3.5 min-h-12 ${primaryButtonClasses}`}
+      <div
+        ref={canvasWrapperRef}
+        className="bg-white rounded-xl p-3 sm:p-4 inline-block border border-gray-100 shadow-soft max-w-full"
       >
-        {submitting ? 'Submitting...' : 'Done'}
-      </button>
+        <QRCodeCanvas value={qrCodeId} size={200} includeMargin />
+      </div>
 
-      <button
-        type="button"
-        onClick={onRegisterAnother}
-        className="w-full text-gray-500 text-sm hover:text-ink transition-colors duration-200 min-h-11"
-      >
-        Register Someone Else on This Phone
-      </button>
-    </form>
+      <div>
+        <p className="text-xs text-neutral mb-1">Registration ID (for manual check-in)</p>
+        <p className="font-mono text-xs text-ink bg-gray-50 border border-gray-200 rounded-lg px-3 py-2 select-all break-all">
+          {qrCodeId}
+        </p>
+      </div>
+
+      <div className="flex flex-col gap-3">
+        <button
+          type="button"
+          onClick={handleDownload}
+          className={`w-full flex items-center justify-center gap-2 py-3 min-h-11 text-ink ${secondaryButtonClasses}`}
+        >
+          <Download size={16} />
+          Download QR Code
+        </button>
+
+        <button
+          type="button"
+          onClick={onContinue}
+          className={`w-full py-3 min-h-11 ${primaryButtonClasses}`}
+        >
+          Continue
+        </button>
+
+        <button
+          type="button"
+          onClick={onRegisterAnother}
+          className="w-full text-gray-500 text-sm hover:text-ink transition-colors duration-200 min-h-11"
+        >
+          Register Someone Else on This Phone
+        </button>
+      </div>
+    </div>
   )
 }

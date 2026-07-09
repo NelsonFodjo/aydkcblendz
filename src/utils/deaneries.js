@@ -27,7 +27,6 @@ export const CONVICTION_SOURCES = [
   'I Love Healthy Drinks',
   'Previous KcBlendz Experience',
   'Recommendation from a Friend',
-  'Other',
 ]
 
-export const PRODUCT_INTERESTS = ['Smoothies', 'Lemonades', 'Wellness Bowls']
+export const PRODUCT_INTERESTS = ['Smoothies', 'Lemonades', 'Wellness Bowls', 'Wellness Shots']
