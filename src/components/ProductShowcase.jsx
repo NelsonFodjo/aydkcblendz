@@ -2,8 +2,8 @@ import { motion } from 'framer-motion'
 
 const SMOOTHIE_IMG = 'https://res.cloudinary.com/dazv72mhz/image/upload/v1783632971/smooth_mszy56.jpg'
 const LEMONADE1_IMG = 'https://res.cloudinary.com/dazv72mhz/image/upload/v1781722506/lemonad_it30xy.jpg'
-const LEMONADE2_IMG = 'https://res.cloudinary.com/dazv72mhz/image/upload/v1783633191/wellness_uht0k9.jpg'
-const STICKER_IMG = 'https://res.cloudinary.com/dazv72mhz/image/upload/v1783633187/wellness2.0_crgjqx.jpg'
+const LEMONADE2_IMG = 'https://res.cloudinary.com/dazv72mhz/image/upload/v1783633187/wellness2.0_crgjqx.jpg'
+const STICKER_IMG = 'https://res.cloudinary.com/dazv72mhz/image/upload/v1783633191/wellness_uht0k9.jpg'
 
 const PRODUCTS = [
   {
@@ -12,7 +12,7 @@ const PRODUCTS = [
     image: SMOOTHIE_IMG,
   },
   {
-    name: 'Lemonades Variants',
+    name: 'Lemonade Variants',
     description: 'classic Lemonade, Berry Lemonade, fruit infused Lemonade.',
     image: LEMONADE1_IMG,
   },
