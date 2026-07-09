@@ -76,7 +76,6 @@ export default function Hero({ onRegisterClick }) {
     Your browser does not support the video tag.
   </video>
 
-  
 
       <div className="absolute inset-0 bg-gradient-to-b from-ink/70 via-ink/50 to-ink/80" />
 

@@ -1,29 +1,29 @@
 import { motion } from 'framer-motion'
 
-const SMOOTHIE_IMG = 'https://res.cloudinary.com/dazv72mhz/image/upload/v1781722506/smoothie_ff99dn.jpg'
+const SMOOTHIE_IMG = 'https://res.cloudinary.com/dazv72mhz/image/upload/v1783632971/smooth_mszy56.jpg'
 const LEMONADE1_IMG = 'https://res.cloudinary.com/dazv72mhz/image/upload/v1781722506/lemonad_it30xy.jpg'
-const LEMONADE2_IMG = 'https://res.cloudinary.com/dazv72mhz/image/upload/v1781722505/lemonad2_mxnvux.jpg'
-const STICKER_IMG = 'https://res.cloudinary.com/dazv72mhz/image/upload/v1781722506/kcblendz_sticker_ffhzop.jpg'
+const LEMONADE2_IMG = 'https://res.cloudinary.com/dazv72mhz/image/upload/v1783633191/wellness_uht0k9.jpg'
+const STICKER_IMG = 'https://res.cloudinary.com/dazv72mhz/image/upload/v1783633187/wellness2.0_crgjqx.jpg'
 
 const PRODUCTS = [
   {
-    name: 'Zobo Blend',
-    description: 'A bold, naturally sweetened hibiscus refresher.',
+    name: 'Smoothies',
+    description: 'Build your own smoothie: Pick any 3 fruits, we blend, You enjoy.',
     image: SMOOTHIE_IMG,
   },
   {
-    name: 'Tiger Nut Delight',
-    description: 'Creamy, nutty, and packed with natural energy.',
+    name: 'Lemonades Variants',
+    description: 'classic Lemonade, Berry Lemonade, fruit infused Lemonade.',
     image: LEMONADE1_IMG,
   },
   {
-    name: 'Green Detox',
-    description: 'Fresh greens and fruit blended for a clean reset.',
+    name: 'Wellness bowls',
+    description: 'Veggie bowl, Fruitty bowl, Mixed bowl.',
     image: LEMONADE2_IMG,
   },
   {
-    name: 'Tropical Fusion',
-    description: 'A vibrant mix of tropical fruits in every sip.',
+    name: 'Wellness Shots',
+    description: 'Citrus Shield immunity shots & Minty fresh detox shots.',
     image: STICKER_IMG,
   },
 ]
