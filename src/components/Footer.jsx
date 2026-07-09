@@ -14,18 +14,26 @@ export default function Footer() {
       <div className="max-w-6xl mx-auto text-center">
         <h2 className="font-display font-semibold text-ink mb-4">Contact</h2>
         <ul className="flex flex-col sm:flex-row sm:justify-center gap-3 sm:gap-8 text-neutral">
+          
+          
           {CONTACTS.map((contact) =>
             contact.name === 'Kelechi Oparaji' ? (
+              
+              
+              
               <li key={contact.name}>
                 <span onClick={() => navigate('/kcblendzadmin')}>{contact.name}</span>:{' '}
-                <a href={`tel:${contact.phone}`} className="text-ink hover:text-lime transition-colors duration-200">
+                <a href={`https://wa.me/${contact.phone}`} className="text-ink hover:text-lime transition-colors duration-200" target="_blank">
                   {contact.display}
                 </a>
               </li>
             ) : (
+              
+              
+              
               <li key={contact.name}>
                 {contact.name}:{' '}
-                <a href={`tel:${contact.phone}`} className="text-ink hover:text-lime transition-colors duration-200">
+                <a href={`https://wa.me/${contact.phone}`} className="text-ink hover:text-lime transition-colors duration-200" target="_blank">
                   {contact.display}
                 </a>
               </li>

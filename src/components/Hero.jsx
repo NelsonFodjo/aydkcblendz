@@ -4,9 +4,12 @@ import { useCountdown } from '../hooks/useCountdown'
 import AnimatedCounter from './AnimatedCounter'
 
 const SMOOTHIE_IMG = 'https://res.cloudinary.com/dazv72mhz/image/upload/v1781722506/smoothie_ff99dn.jpg'
+
+const VID = 'https://res.cloudinary.com/dazv72mhz/video/upload/v1783631262/kcblendz_ukxrrx.mp4'
+
 const KCBLENDZ_LOGO =
   'https://res.cloudinary.com/dazv72mhz/image/upload/v1781727958/kcblendz_logo-removebg-preview_rcs9lv.png'
-const AYD_LOGO = 'https://res.cloudinary.com/dazv72mhz/image/upload/v1781732367/ayd_logo-removebg-preview_tdfrl7.png'
+const AYD_LOGO = 'https://res.cloudinary.com/dazv72mhz/image/upload/v1783631688/AYD_Logo_oklrd5.png'
 
 const MARQUEE_WORDS = [
   { text: 'Nourishing Lives', color: 'text-lime' },
@@ -18,6 +21,7 @@ const MARQUEE_WORDS = [
   { text: 'Community', color: 'text-lime' },
   { text: 'Refreshing', color: 'text-gold' },
   { text: 'AYD 2026', color: 'text-white' },
+  { text: 'KCBLENDZ', color: 'text-white' },
 ]
 
 function Marquee() {
@@ -59,10 +63,21 @@ export default function Hero({ onRegisterClick }) {
   const { days, hours, minutes, seconds } = useCountdown()
 
   return (
-    <section
-      className="relative overflow-hidden bg-cover bg-center min-h-[100dvh] flex flex-col items-center justify-center"
-      style={{ backgroundImage: `url(${SMOOTHIE_IMG})` }}
-    >
+    <section className="relative min-h-[100dvh] overflow-hidden flex flex-col items-center justify-center">
+  {/* Background Video */}
+  <video
+    className="absolute inset-0 w-full h-full object-cover"
+    autoPlay
+    muted
+    loop
+    playsInline
+  >
+    <source src={VID} type="video/mp4" />
+    Your browser does not support the video tag.
+  </video>
+
+  
+
       <div className="absolute inset-0 bg-gradient-to-b from-ink/70 via-ink/50 to-ink/80" />
 
       <div className="max-w-3xl mx-auto px-4 pt-16 sm:pt-20 pb-12 sm:pb-24 relative z-10 text-center w-full">

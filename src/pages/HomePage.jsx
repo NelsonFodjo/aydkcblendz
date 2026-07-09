@@ -15,6 +15,7 @@ export default function HomePage() {
   }
 
   return (
+    // Using Tailwind CSS utility classes
     <div className="min-h-screen bg-white">
       <Hero onRegisterClick={() => setShowModal(true)} />
       <ProductShowcase />
